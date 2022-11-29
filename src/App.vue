@@ -21,7 +21,8 @@
     <section class="container">
       <div class="columns">
         <div class="column is-3">
-          <a v-if="!isDisplayed"
+          <a
+            v-if="!isDisplayed"
             @click="formDisplay()"
             class="button is-primary is block is-alt"
             href="#"
@@ -31,7 +32,7 @@
             <h3>Create Notes</h3>
             <form>
               <div class="field">
-                <label class="label" >Title</label>
+                <label class="label">Title</label>
                 <div class="control">
                   <input v-model="newData.title" />
                 </div>
@@ -48,10 +49,21 @@
               </div>
               <div class="field is-grouped">
                 <div class="control">
-                  <button @click="createActivity" class="button is-link">Create Notes</button>
+                  <button
+                    :disabled="checkDataValid"
+                    @click="createActivity"
+                    class="button is-warning"
+                  >
+                    Create Notes
+                  </button>
                 </div>
                 <div class="control">
-                  <button class="button is-danger is-text" @click="formDisplay()">Cancel</button>
+                  <button
+                    class="button is-danger is-text"
+                    @click="formDisplay()"
+                  >
+                    Cancel
+                  </button>
                 </div>
               </div>
             </form>
@@ -72,7 +84,8 @@
 </template>
 
 <script>
-import DataItems from "./components/DataItems.vue";
+import { fetchActivities, fetchUser, fetchCategories } from "@/api";
+import DataItems from "@/components/DataItems.vue";
 export default {
   name: "app",
   components: { DataItems },
@@ -87,35 +100,20 @@ export default {
         notes: "",
       },
       items: { 1: { name: "Milos" }, 2: { name: "Sava" } },
-      user: {
-        name: "Milos Jeremic",
-        id: "-Aj34jknvncx98812",
-      },
-      activities: {
-        1546968548: {
-          id: "1546968548",
-          title: "Task one",
-          notes: "Git rebase is danger command",
-          progress: 0,
-          category: "1546969049",
-          createdAt: 1546969144391,
-          updatedAt: 1546969144391,
-        },
-        1546969881: {
-          id: "1546969881",
-          title: "Task two",
-          notes: "Added new repo on git",
-          progress: 0,
-          category: "1546969049",
-          createdAt: 1546969144391,
-          updatedAt: 1546969144391,
-        },
-      },
-      categories: {
-        1546969049: { text: "VueJS" },
-        1546969225: { text: "Angular" },
-      },
+      user: {},
+      activities: {},
+      categories: {},
     };
+  },
+  created() {
+    this.activities = fetchActivities();
+    this.user = fetchUser();
+    this.categoties = fetchCategories();
+  },
+  computed: {
+    checkDataValid() {
+      return !this.newData.title || !this.newData.notes;
+    },
   },
   methods: {
     textDisplay() {
@@ -125,8 +123,8 @@ export default {
       this.isDisplayed = !this.isDisplayed;
     },
     createActivity() {
-        console.log(this.newData)
-    }
+      console.log(this.newData);
+    },
   },
 };
 </script>

@@ -3,13 +3,12 @@
     <article class="post">
       <h4>{{ activity.title }}</h4>
       <div class="media">
-        <div class="media-left">
-        </div>
+        <div class="media-left"></div>
         <div class="media-content">
           <div class="content">
             <p>
-              <a href="#">User One</a> updated
-              {{ activity.updatedAt }} minutes ago &nbsp;
+              <a href="#">User One</a> updated {{ activity.updatedAt }} minutes
+              ago &nbsp;
             </p>
           </div>
         </div>
@@ -23,9 +22,12 @@
 
 <script>
 export default {
-    props: [
-        'activity'
-    ]
+  props: {
+    activity: {
+      type: Object,
+      required: true,
+    },
+  },
 };
 </script>
 
