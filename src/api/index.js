@@ -22,8 +22,8 @@ export const fetchActivities = () => {
 };
 export const fetchCategories = () => {
   return {
-    1546969049: { text: "VueJS" },
-    1546969225: { text: "Angular" },
+    '1546969049': { text: 'test01', id:'1546969049' },
+    '1546969225': { text: 'test02', id:'1546969225' },
   }
 };
 export const fetchUser = () => {

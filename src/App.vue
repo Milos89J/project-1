@@ -3,7 +3,7 @@
     <nav class="navbar is-white topNote">
       <div class="container">
         <div class="navbar-name">
-          <h2>Notes</h2>
+          <h2>{{appName}}</h2>
         </div>
       </div>
     </nav>
@@ -47,6 +47,15 @@
                   ></textarea>
                 </div>
               </div>
+              <div class="field"> 
+                <label class="label">Category</label>
+                <div class="control">
+                  <select v-model="newData.categoty" class="select">
+                    <option disabled value="">Select one</option>
+                    <option v-for="category in categories" :key="category.id"> {{category.text}} </option>
+                  </select>
+                </div>
+              </div>
               <div class="field is-grouped">
                 <div class="control">
                   <button
@@ -76,6 +85,8 @@
               :activity="activity"
               :key="activity.id"
             ></DataItems>
+            <div class="data-length">Currently {{dataLength}} task</div>
+            <div class="data-message">{{dataMessage}}</div>
           </div>
         </div>
       </div>
@@ -92,12 +103,13 @@ export default {
   data() {
     return {
       isDisplayed: false,
-      message: "Hi!",
-      titleMessage: "My Project!",
+      creator: 'MJ',
+      appName: 'Notes',
       isTextDisplayed: true,
       newData: {
         title: "",
         notes: "",
+        category: "",
       },
       items: { 1: { name: "Milos" }, 2: { name: "Sava" } },
       user: {},
@@ -113,6 +125,18 @@ export default {
   computed: {
     checkDataValid() {
       return !this.newData.title || !this.newData.notes;
+    },
+    dataLength () { // this function or computed counts tasks
+    return Object.keys(this.activities).length 
+    },
+    dataMessage () {
+      if (this.dataLength && this.dataLength < 5) {
+        return 'See some tasks'
+      } else if (this.dataLength >= 5) {
+        return 'Many tasks, good for you'
+      } else {
+        return 'No tasks...'
+      }
     },
   },
   methods: {
@@ -142,6 +166,12 @@ body {
 }
 footer {
   background-color: #f2f6fa !important;
+}
+.data-message {
+  float: right;
+}
+.data-length {
+  display: inline-block;
 }
 .example-wrapper {
   margin-left: 30px;
