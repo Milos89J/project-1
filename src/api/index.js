@@ -1,5 +1,3 @@
-
-
 const activities = {
   1546968548: {
     id: "1546968548",
@@ -21,13 +19,25 @@ const activities = {
   },
 };
 
-export const fetchActivities = () => {
+const canContinue = () => {
+  const rndNumber = Math.floor(Math.random() * 10);
 
-  return new Promise((resolve) => {
+  if (rndNumber > 5) {
+    return true;
+  }
+  return false;
+};
+
+export const fetchActivities = () => {
+  return new Promise((resolve, reject) => {
     setTimeout(() => {
-      resolve(activities)
-    }, 2000)
-  })
+      if (canContinue()) {
+        resolve(activities);
+      } else {
+        reject("Cannot fetch");
+      }
+    }, 2000);
+  });
 };
 
 const generateId = () => Math.floor(new Date() * Math.random());
@@ -39,8 +49,8 @@ export const createData = (data) => {
   data.updatedAt = new Date();
 
   return new Promise((resolve) => {
-    resolve(data)
-  })
+    resolve(data);
+  });
 };
 export const fetchCategories = () => {
   return {

@@ -7,31 +7,32 @@
         </div>
       </div>
     </nav>
-    <nav class="navbar is-white">
-      <div class="container">
-        <div class="navbar-menu">
-          <div class="navbar-start">
-            <a class="navbar-item is-active" href="#">Newest</a>
-            <a class="navbar-item" href="#">Progress</a>
-            <a class="navbar-item" href="#">Finished</a>
-          </div>
-        </div>
-      </div>
-    </nav>
+    <TheNavbar />
     <section class="container">
       <div class="columns">
         <div class="column is-3">
           <DataCreate @dataCreated="addData" :categories="categories" />
         </div>
         <div class="column is-9">
-          <div class="box content">
-            <DataItems
-              v-for="activity in activities"
-              :activity="activity"
-              :key="activity.id"
-            ></DataItems>
-            <div class="data-length">Currently {{ dataLength }} task</div>
-            <div class="data-message">{{ dataMessage }}</div>
+          <div
+            class="box content"
+            :class="{ fetching: fetchingData, 'has-error': error }"
+          >
+            <div v-if="error">
+              {{ error }}
+            </div>
+            <div v-else>
+              <div v-if="fetchingData">Loading . . .</div>
+              <DataItems
+                v-for="activity in activities"
+                :activity="activity"
+                :key="activity.id"
+              ></DataItems>
+            </div>
+            <div v-if="!fetchingData">
+              <div class="data-length">Currently {{ dataLength }} task</div>
+              <div class="data-message">{{ dataMessage }}</div>
+            </div>
           </div>
         </div>
       </div>
@@ -41,28 +42,37 @@
 
 <script>
 import Vue from "vue";
+import TheNavbar from "./components/TheNavbar.vue";
 import DataCreate from "@/components/DataCreate.vue";
 import { fetchActivities, fetchUser, fetchCategories } from "@/api";
 import DataItems from "@/components/DataItems.vue";
 export default {
   name: "app",
-  components: { DataItems, DataCreate },
+  components: { DataItems, DataCreate, TheNavbar },
   data() {
     return {
       creator: "MJ",
       appName: "Notes",
       isTextDisplayed: true,
-      items: { 1: { name: "Milos" }, 2: { name: "Sava" } },
+      items: { 1: { name: "User1" }, 2: { name: "User2" } },
+      fetchingData: false,
+      error: null,
       user: {},
       activities: {},
       categories: {},
     };
   },
   created() {
+    this.fetchingData = true;
     fetchActivities()
-    .then(activities => {
-        this.activities = activities
-    })
+      .then((activities) => {
+        this.activities = activities;
+        this.fetchingData = false;
+      })
+      .catch((err) => {
+        this.error = err;
+        this.fetchingData = false;
+      });
     this.user = fetchUser();
     this.categoties = fetchCategories();
   },
@@ -86,7 +96,7 @@ export default {
       this.isTextDisplayed = !this.isTextDisplayed;
     },
     addData(newData) {
-      Vue.set(this.activities, newData.id, newData) // This property used for display new activities
+      Vue.set(this.activities, newData.id, newData); // This property used for display new activities
     },
   },
 };
@@ -105,6 +115,12 @@ body {
 }
 footer {
   background-color: #f2f6fa !important;
+}
+.fetching {
+  border: 1.5px solid rgb(252, 107, 50);
+}
+.has-error {
+  border: 1.5px solid rgb(184, 24, 184);
 }
 .data-message {
   float: right;

@@ -82,18 +82,25 @@ export default {
   },
   computed: {
     checkDataValid() {
-      return this.newData.title && this.newData.notes;
-    },
+      return this.newData.title && this.newData.notes; // if we have to add category like options value, we need
+    }, // to simply write this.newData.categoy
   },
   methods: {
     formDisplay() {
       this.isDisplayed = !this.isDisplayed;
     },
+    resetCreateNotes() {
+      this.newData.title = "";
+      this.newData.notes = "";
+      this.newData.categories = "";
+    },
     createActivity() {
-      createData(this.newData).then(data => {
+      createData({ ...this.newData }).then((data) => {
+        this.resetCreateNotes();
+        this.isDisplayed = false;
+
         this.$emit("dataCreated", { ...data });
-      })
-      
+      });
     },
   },
 };
