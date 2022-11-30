@@ -41,14 +41,17 @@
           <div class="control">
             <button
               :disabled="!checkDataValid"
-              @click="createActivity"
+              @click.prevent="createActivity"
               class="button is-warning"
             >
               Create Notes
             </button>
           </div>
           <div class="control">
-            <button class="button is-danger is-text" @click="formDisplay()">
+            <button
+              class="button is-danger is-text"
+              @click.prevent="formDisplay()"
+            >
               Cancel
             </button>
           </div>
@@ -59,6 +62,7 @@
 </template>
 
 <script>
+import { createData } from "@/api";
 export default {
   props: {
     categories: {
@@ -86,7 +90,10 @@ export default {
       this.isDisplayed = !this.isDisplayed;
     },
     createActivity() {
-      console.log(this.newData);
+      createData(this.newData).then(data => {
+        this.$emit("dataCreated", { ...data });
+      })
+      
     },
   },
 };

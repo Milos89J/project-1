@@ -21,7 +21,7 @@
     <section class="container">
       <div class="columns">
         <div class="column is-3">
-          <DataCreate :categories="categories" />
+          <DataCreate @dataCreated="addData" :categories="categories" />
         </div>
         <div class="column is-9">
           <div class="box content">
@@ -40,6 +40,7 @@
 </template>
 
 <script>
+import Vue from "vue";
 import DataCreate from "@/components/DataCreate.vue";
 import { fetchActivities, fetchUser, fetchCategories } from "@/api";
 import DataItems from "@/components/DataItems.vue";
@@ -58,7 +59,10 @@ export default {
     };
   },
   created() {
-    this.activities = fetchActivities();
+    fetchActivities()
+    .then(activities => {
+        this.activities = activities
+    })
     this.user = fetchUser();
     this.categoties = fetchCategories();
   },
@@ -80,6 +84,9 @@ export default {
   methods: {
     textDisplay() {
       this.isTextDisplayed = !this.isTextDisplayed;
+    },
+    addData(newData) {
+      Vue.set(this.activities, newData.id, newData) // This property used for display new activities
     },
   },
 };
