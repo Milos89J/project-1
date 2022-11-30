@@ -3,7 +3,7 @@
     <nav class="navbar is-white topNote">
       <div class="container">
         <div class="navbar-name">
-          <h2>{{appName}}</h2>
+          <h2>{{ appName }}</h2>
         </div>
       </div>
     </nav>
@@ -21,62 +21,7 @@
     <section class="container">
       <div class="columns">
         <div class="column is-3">
-          <a
-            v-if="!isDisplayed"
-            @click="formDisplay()"
-            class="button is-primary is block is-alt"
-            href="#"
-            >New Notes</a
-          >
-          <div v-if="isDisplayed" class="create-form">
-            <h3>Create Notes</h3>
-            <form>
-              <div class="field">
-                <label class="label">Title</label>
-                <div class="control">
-                  <input v-model="newData.title" />
-                </div>
-              </div>
-              <div class="field">
-                <label class="label">Notes</label>
-                <div class="control">
-                  <textarea
-                    v-model="newData.notes"
-                    class="textarea"
-                    placeholder="Type some notes..."
-                  ></textarea>
-                </div>
-              </div>
-              <div class="field"> 
-                <label class="label">Category</label>
-                <div class="control">
-                  <select v-model="newData.categoty" class="select">
-                    <option disabled value="">Select one</option>
-                    <option v-for="category in categories" :key="category.id"> {{category.text}} </option>
-                  </select>
-                </div>
-              </div>
-              <div class="field is-grouped">
-                <div class="control">
-                  <button
-                    :disabled="checkDataValid"
-                    @click="createActivity"
-                    class="button is-warning"
-                  >
-                    Create Notes
-                  </button>
-                </div>
-                <div class="control">
-                  <button
-                    class="button is-danger is-text"
-                    @click="formDisplay()"
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </div>
-            </form>
-          </div>
+          <DataCreate :categories="categories" />
         </div>
         <div class="column is-9">
           <div class="box content">
@@ -85,8 +30,8 @@
               :activity="activity"
               :key="activity.id"
             ></DataItems>
-            <div class="data-length">Currently {{dataLength}} task</div>
-            <div class="data-message">{{dataMessage}}</div>
+            <div class="data-length">Currently {{ dataLength }} task</div>
+            <div class="data-message">{{ dataMessage }}</div>
           </div>
         </div>
       </div>
@@ -95,22 +40,17 @@
 </template>
 
 <script>
+import DataCreate from "@/components/DataCreate.vue";
 import { fetchActivities, fetchUser, fetchCategories } from "@/api";
 import DataItems from "@/components/DataItems.vue";
 export default {
   name: "app",
-  components: { DataItems },
+  components: { DataItems, DataCreate },
   data() {
     return {
-      isDisplayed: false,
-      creator: 'MJ',
-      appName: 'Notes',
+      creator: "MJ",
+      appName: "Notes",
       isTextDisplayed: true,
-      newData: {
-        title: "",
-        notes: "",
-        category: "",
-      },
       items: { 1: { name: "Milos" }, 2: { name: "Sava" } },
       user: {},
       activities: {},
@@ -123,31 +63,23 @@ export default {
     this.categoties = fetchCategories();
   },
   computed: {
-    checkDataValid() {
-      return !this.newData.title || !this.newData.notes;
+    dataLength() {
+      // this function or computed counts tasks
+      return Object.keys(this.activities).length;
     },
-    dataLength () { // this function or computed counts tasks
-    return Object.keys(this.activities).length 
-    },
-    dataMessage () {
+    dataMessage() {
       if (this.dataLength && this.dataLength < 5) {
-        return 'See some tasks'
+        return "See some tasks";
       } else if (this.dataLength >= 5) {
-        return 'Many tasks, good for you'
+        return "Many tasks, good for you";
       } else {
-        return 'No tasks...'
+        return "No tasks...";
       }
     },
   },
   methods: {
     textDisplay() {
       this.isTextDisplayed = !this.isTextDisplayed;
-    },
-    formDisplay() {
-      this.isDisplayed = !this.isDisplayed;
-    },
-    createActivity() {
-      console.log(this.newData);
     },
   },
 };
