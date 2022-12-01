@@ -4,7 +4,7 @@ const activities = {
     title: "Task one",
     notes: "Git rebase is danger command",
     progress: 50,
-    category: "1546969049",
+    category: "000000",
     createdAt: 1546969144391,
     updatedAt: 1546969144391,
   },
@@ -13,7 +13,7 @@ const activities = {
     title: "Task two",
     notes: "Added new repo on git",
     progress: 0,
-    category: "1546969049",
+    category: "000000",
     createdAt: 1546969144391,
     updatedAt: 1546969144391,
   },
@@ -44,7 +44,7 @@ const generateId = () => Math.floor(new Date() * Math.random());
 
 export const createData = (data) => {
   data.id = generateId();
-  data.progres = 0;
+  data.progress = 0;
   data.createAt = new Date();
   data.updatedAt = new Date();
 

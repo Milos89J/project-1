@@ -1,7 +1,9 @@
 <template>
   <div>
-    <article class="post">
-      <h4>{{ activity.title }}</h4>
+    <article class="item">
+      <h4 class="title-data">{{ activity.title }}</h4>
+      <p>{{ categories[activity.category] }}</p>
+      <p>{{ activity.notes }}</p>
       <div class="media">
         <div class="media-left"></div>
         <div class="media-content">
@@ -14,7 +16,10 @@
         </div>
         <div class="media-right">
           <span
-            >Progress: <span :class="'color-' + activityProgress">{{ activity.progress }} %</span></span
+            >Progress:
+            <span :class="'color-' + activityProgress"
+              >{{ activity.progress }} %</span
+            ></span
           >
         </div>
       </div>
@@ -25,21 +30,26 @@
 <script>
 export default {
   props: {
+    categories: {
+      type: Object,
+      required: true,
+    },
     activity: {
       type: Object,
       required: true,
     },
   },
+
   computed: {
-    activityProgress () {
+    activityProgress() {
       if (this.activity.progress <= 0) {
-        return 'red'
+        return "red";
       } else if (this.activity.progress <= 50) {
-        return 'orange'
+        return "orange";
       } else {
-        return 'green'
+        return "green";
       }
-    }
+    },
   },
 };
 </script>
@@ -53,5 +63,8 @@ export default {
 }
 .color-green {
   color: green;
+}
+.item .title-data {
+  margin-bottom: 4px;
 }
 </style>

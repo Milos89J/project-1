@@ -26,6 +26,7 @@
               <DataItems
                 v-for="activity in activities"
                 :activity="activity"
+                :categories="categories"
                 :key="activity.id"
               ></DataItems>
             </div>

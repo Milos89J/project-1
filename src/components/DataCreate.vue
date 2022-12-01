@@ -31,7 +31,7 @@
           <div class="control">
             <select v-model="newData.categoty" class="select">
               <option disabled value="">Select one</option>
-              <option v-for="category in categories" :key="category.id">
+              <option v-for="category in categories" :key="category.id" :value="category.id">
                 {{ category.text }}
               </option>
             </select>
