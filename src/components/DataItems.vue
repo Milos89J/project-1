@@ -13,7 +13,9 @@
           </div>
         </div>
         <div class="media-right">
-          <span>Progress Bar</span>
+          <span
+            >Progress: <span :class="'color-' + activityProgress">{{ activity.progress }} %</span></span
+          >
         </div>
       </div>
     </article>
@@ -28,8 +30,28 @@ export default {
       required: true,
     },
   },
+  computed: {
+    activityProgress () {
+      if (this.activity.progress <= 0) {
+        return 'red'
+      } else if (this.activity.progress <= 50) {
+        return 'orange'
+      } else {
+        return 'green'
+      }
+    }
+  },
 };
 </script>
 
 <style scoped>
+.color-red {
+  color: red;
+}
+.color-orange {
+  color: orange;
+}
+.color-green {
+  color: green;
+}
 </style>

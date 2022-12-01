@@ -3,7 +3,7 @@ const activities = {
     id: "1546968548",
     title: "Task one",
     notes: "Git rebase is danger command",
-    progress: 0,
+    progress: 50,
     category: "1546969049",
     createdAt: 1546969144391,
     updatedAt: 1546969144391,
@@ -36,7 +36,7 @@ export const fetchActivities = () => {
       } else {
         reject("Cannot fetch");
       }
-    }, 2000);
+    }, 1000);
   });
 };
 
