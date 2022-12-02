@@ -1,7 +1,7 @@
 <template>
   <div>
     <article class="item">
-      <h4 class="title-data">{{ activity.title }}</h4>
+      <h4 class="title-data">{{ activity.title  | uppercase }}</h4>
       <p>{{ categories[activity.category] }}</p>
       <p>{{ activity.notes }}</p>
       <div class="media">
@@ -9,7 +9,7 @@
         <div class="media-content">
           <div class="content">
             <p>
-              <a href="#">User One</a> updated {{ activity.updatedAt }} minutes
+              <a href="#">User One</a> updated {{ activity.updatedAt | appTime }} minutes
               ago &nbsp;
             </p>
           </div>
