@@ -75,7 +75,9 @@ export default {
         this.fetchingData = false;
       });
     this.user = fetchUser();
-    this.categoties = fetchCategories();
+    fetchCategories().then(categories => {
+        this.categories = categories
+    })
   },
   computed: {
     dataLength() {
