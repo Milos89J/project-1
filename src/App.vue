@@ -28,6 +28,7 @@
                 :activity="activity"
                 :categories="categories"
                 :key="activity._id"
+                @activityDeleted="clickActivityDelete"> <!--3 delete-->
               ></DataItems>
             </div>
             <div v-if="!fetchingData">
@@ -101,6 +102,9 @@ export default {
     addData(newData) {
       Vue.set(this.activities, newData.id, newData); // This property used for display new activities
     },
+    clickActivityDelete (activity) {  // 4 delete
+      console.log(activity)
+    }
   },
 };
 </script>

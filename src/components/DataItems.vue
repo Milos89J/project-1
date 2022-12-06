@@ -28,7 +28,7 @@
       </div>
       <div v-if="controlDisplayed" class="activity-controll">
         <a class="button is-warning">Edit</a>
-        <a class="button is-danger">Delete</a>
+        <a class="button is-danger" @click="deleteData">Delete</a> <!--2 delete-->
       </div>
     </article>
   </div>
@@ -63,6 +63,11 @@ export default {
       }
     },
   },
+  methods: {
+    deleteData () { // 1 delete
+      this.$emit('activityDeleted', this.activity)
+    }
+  }
 };
 </script>
 
