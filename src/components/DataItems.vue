@@ -1,16 +1,19 @@
 <template>
   <div>
     <article class="item">
-      <h4 class="title-data">{{ activity.title  | uppercase }}</h4>
-      <p>{{ categories[activity.category]}}</p>
+      <div class="activity-title-wrapper">
+        <h4 class="activity-title">{{ activity.title }}</h4>
+        <i class="fas fa-cog activity-settings" @click="controlDisplayed = !controlDisplayed"></i>
+      </div>
+      <p>{{ categories[activity.category] }}</p>
       <p>{{ activity.notes }}</p>
       <div class="media">
         <div class="media-left"></div>
         <div class="media-content">
           <div class="content">
             <p>
-              <a href="#">User One</a> updated {{ activity.updatedAt | appTime }} minutes
-              ago &nbsp;
+              <a href="#">User One</a> updated
+              {{ activity.updatedAt | appTime }} minutes ago &nbsp;
             </p>
           </div>
         </div>
@@ -23,12 +26,21 @@
           >
         </div>
       </div>
+      <div v-if="controlDisplayed" class="activity-controll">
+        <a class="button is-warning">Edit</a>
+        <a class="button is-danger">Delete</a>
+      </div>
     </article>
   </div>
 </template>
 
 <script>
 export default {
+  data () {
+    return {
+    controlDisplayed: false
+    }
+  },
   props: {
     categories: {
       type: Object,
@@ -54,7 +66,27 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.activity-title {
+  margin-bottom: 5px;
+  display: inline-block;
+}
+.activity-settings {
+  float: right;
+  font-size: 20px;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+.activity-controll {
+  margin: 20px 0 0 0;
+
+  a {
+    margin-right: 5px;
+  }
+}
+
 .color-red {
   color: red;
 }

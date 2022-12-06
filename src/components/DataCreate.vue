@@ -42,7 +42,7 @@
             <button
               :disabled="!checkDataValid"
               @click.prevent="createActivity"
-              class="button is-warning"
+              class="button is-primary"
             >
               Create Notes
             </button>
