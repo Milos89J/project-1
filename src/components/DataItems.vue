@@ -2,7 +2,7 @@
   <div>
     <article class="item">
       <h4 class="title-data">{{ activity.title  | uppercase }}</h4>
-      <p>{{ categories[activity.category] }}</p>
+      <p>{{ categories[activity.category]}}</p>
       <p>{{ activity.notes }}</p>
       <div class="media">
         <div class="media-left"></div>

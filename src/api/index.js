@@ -3,7 +3,7 @@ import fakeApi from "@/lib/fakeApi";
 const generateId = () => Math.floor(new Date() * Math.random());
 
 export const fetchActivities = () => {
-  return fakeApi.get('activities')
+  return fakeApi.get('activities', {force: 1})
 };
 
 export const createData = (data) => {
@@ -12,12 +12,10 @@ export const createData = (data) => {
   data.createAt = new Date();
   data.updatedAt = new Date();
 
-  return new Promise((resolve) => {
-    resolve(data);
-  });
+ return fakeApi.post('activities', data)
 };
 export const fetchCategories = () => {
-  return fakeApi.get('categories')
+  return fakeApi.get('categories', {force: 1})
   
 };
 export const fetchUser = () => {

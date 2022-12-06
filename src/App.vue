@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div v-if="activities && categories" id="app"> 
     <nav class="navbar is-white topNote">
       <div class="container">
         <div class="navbar-name">
@@ -27,7 +27,7 @@
                 v-for="activity in activities"
                 :activity="activity"
                 :categories="categories"
-                :key="activity.id"
+                :key="activity._id"
               ></DataItems>
             </div>
             <div v-if="!fetchingData">
@@ -59,8 +59,8 @@ export default {
       fetchingData: false,
       error: null,
       user: {},
-      activities: {},
-      categories: {},
+      activities: null,
+      categories: null,
     };
   },
   created() {

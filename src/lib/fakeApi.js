@@ -36,16 +36,22 @@ canContinue () {
     return false;
   }
   
-get (resource) {
-    return new Promise((resolve, reject) => {
+get (resource, {force = 0}) {
+    return new Promise((resolve, reject) => { //get function
       setTimeout(() => {
-        if (this.canContinue()) {
-          resolve(data[resource]);
+        if (force || this.canContinue()) {
+          resolve({...data[resource]});
         } else {
           reject("Cannot fetch");
         }
       }, 1000);
     });
+  }
+  post (resource, item) {
+    return new Promise((resolve) => { //post function
+      data[resource][item.id = item]
+      resolve(item)
+    })
   }
 }
 export default new FakeApi();
