@@ -24,3 +24,8 @@ export const fetchUser = () => {
     id: "-Aj34jknvncx98812",
   };
 };
+
+export const deleteDataAPI = (activity) => {  //6 step delete, mi ovde povezujem sa fakeapi i definisemo sta 
+                                                 //brisemo. prvo 5 pa 6
+  return fakeApi.delete('activities', activity)
+}

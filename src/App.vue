@@ -46,7 +46,7 @@
 import Vue from "vue";
 import TheNavbar from "./components/TheNavbar.vue";
 import DataCreate from "@/components/DataCreate.vue";
-import { fetchActivities, fetchUser, fetchCategories } from "@/api";
+import { fetchActivities, fetchUser, fetchCategories, deleteDataAPI } from "@/api";
 import DataItems from "@/components/DataItems.vue";
 export default {
   name: "app",
@@ -102,8 +102,11 @@ export default {
     addData(newData) {
       Vue.set(this.activities, newData.id, newData); // This property used for display new activities
     },
-    clickActivityDelete (activity) {  // 4 delete
-      console.log(activity)
+    clickActivityDelete (activity) {  // 7 delete
+      deleteDataAPI(activity)
+      .then(deletedActivity => {
+        Vue.delete(this.activities, deletedActivity.id)
+      })
     }
   },
 };

@@ -53,5 +53,11 @@ get (resource, {force = 0}) {
       resolve(item)
     })
   }
+  delete(resource, item) {
+    return new Promise((resolve) => {  //dele function, 5 step
+    delete data[resource] [item.id]
+    resolve(item)
+    })
+  }
 }
 export default new FakeApi();
