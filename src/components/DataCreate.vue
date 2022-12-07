@@ -29,7 +29,7 @@
         <div class="field">
           <label class="label">Category</label>
           <div class="control">
-            <select v-model="newData.categoty" class="select">
+            <select v-model="newData.category" class="select">
               <option disabled value="">Select one</option>
               <option v-for="category in categories" :key="category.id" :value="category.id">
                 {{ category.text }}

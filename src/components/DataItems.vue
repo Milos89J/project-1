@@ -1,7 +1,7 @@
 <template>
   <div>
-    <DataItemUpdate v-if="controlDisplayed"/>
-    <DataDetail v-else :activity="activity" :categories="categories"/>
+    <DataItemUpdate v-if="controlDisplayed" :activity="activity" :categories="categories"/>
+    <DataDetail v-else :activity="activity" :categories="categories" @updateEdit="changeUpdateEdit"/> <!--Edit func-->
     
   </div>
 </template>
@@ -28,7 +28,12 @@ export default {
       return {
       controlDisplayed: false
       }
-    }
+    },
+    methods: {
+       changeUpdateEdit (isUpdate) { /// edit func, when click we are changing from dataitemupdate
+        this.controlDisplayed = isUpdate
+       }
+    },
   };
 </script>
 
