@@ -47,7 +47,7 @@
       </div>
     </div>
     <div v-if="controlDisplayed" class="activity-controll">
-      <a class="button is-warning" @click="updateActivity">Update</a>
+      <a class="button is-link" @click="updateActivity">Update</a>
       <a class="button is-danger" @click="$emit('updateEdit', false)">Cancel</a>
     </div>
   </article>
