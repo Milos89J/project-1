@@ -1,6 +1,6 @@
 <template>
   <div>
-    <DataItemUpdate v-if="controlDisplayed" :activity="activity" :categories="categories"/>
+    <DataItemUpdate v-if="controlDisplayed" :activity="activity" :categories="categories" @updateEdit="changeUpdateEdit"/>
     <DataDetail v-else :activity="activity" :categories="categories" @updateEdit="changeUpdateEdit"/> <!--Edit func-->
     
   </div>

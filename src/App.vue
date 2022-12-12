@@ -43,15 +43,17 @@
 </template>
 
 <script>
+import store from './store';
 import Vue from "vue";
 import TheNavbar from "./components/TheNavbar.vue";
 import DataCreate from "@/components/DataCreate.vue";
-import { fetchActivities, fetchUser, fetchCategories, deleteDataAPI } from "@/api";
+//import { fetchActivities, fetchUser, fetchCategories, deleteDataAPI } from "@/api"; 
 import DataItems from "@/components/DataItems.vue";
 export default {
   name: "app",
   components: { DataItems, DataCreate, TheNavbar },
   data() {
+    const { state: {activities, categories}} = store
     return {
       creator: "MJ",
       appName: "Notes",
@@ -60,24 +62,22 @@ export default {
       fetchingData: false,
       error: null,
       user: {},
-      activities: null,
-      categories: null,
+      activities,
+      categories,
     };
   },
   created() {
     this.fetchingData = true;
-    fetchActivities()
+    store.fetchActivities() 
       .then((activities) => {
-        this.activities = activities;
-        this.fetchingData = false;
+        this.fetchingData = false
       })
       .catch((err) => {
         this.error = err;
         this.fetchingData = false;
       });
-    this.user = fetchUser();
-    fetchCategories().then(categories => {
-        this.categories = categories
+    this.user = store.fetchUser();
+    store.fetchCategories().then(categories => {
     })
   },
   computed: {
@@ -103,7 +103,7 @@ export default {
       Vue.set(this.activities, newData.id, newData); // This property used for display new activities
     },
     clickActivityDelete (activity) {  // 7 delete
-      deleteDataAPI(activity)
+      store.deleteDataAPI(activity)
       .then(deletedActivity => {
         Vue.delete(this.activities, deletedActivity.id)
       })

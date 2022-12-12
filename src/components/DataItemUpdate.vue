@@ -43,7 +43,7 @@
           value="90"
           step="10"
         />
-        <label for="progress">Progress</label>
+        <label for="progress">{{activity.progress}} %</label>
       </div>
     </div>
     <div v-if="controlDisplayed" class="activity-controll">
