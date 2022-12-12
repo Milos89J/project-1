@@ -13,7 +13,7 @@ const store = {
       return fakeApi.get("activities", { force: 1 })
       .then(activities => {
         Object.keys(activities).forEach((key) => {
-            Vue.set(this.state.activities, key, activities[key])
+            this.setItem('activities', key, activities[key])
         })
         return activities
       })
@@ -22,10 +22,13 @@ const store = {
         return fakeApi.get("categories", { force: 1 })
         .then(categories => {
             Object.keys(categories).forEach((key) => {
-                Vue.set(this.state.categories, key, categories[key])
+                this.setItem('categories', key, categories[key])
             })
          return categories
         })
+      },
+      setItem (resource, id, item) {
+      Vue.set(this.state[resource], id, item)
       },
 
     createData(data) {
@@ -44,12 +47,14 @@ const store = {
       };
     },
 
-    deleteDataAPI(activity) {
-      //6 step delete, mi ovde povezujem sa fakeapi i definisemo sta
-      //brisemo. prvo 5 pa 6
-      return fakeApi.delete("activities", activity);
+    deleteData(activity) {
+      return fakeApi.delete("activities", activity)
+      .then(deleteData => {
+        Vue.delete(this.state.activities, activity.id)
+        return deleteData
+      })
     },
-  },
-};
+}
+  };
 
 export default store;

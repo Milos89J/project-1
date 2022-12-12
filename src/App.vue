@@ -28,7 +28,7 @@
                 :activity="activity"
                 :categories="categories"
                 :key="activity._id"
-                @activityDeleted="clickActivityDelete"> <!--3 delete-->
+                
               ></DataItems>
             </div>
             <div v-if="!fetchingData">
@@ -71,6 +71,7 @@ export default {
     store.fetchActivities() 
       .then((activities) => {
         this.fetchingData = false
+        return activities
       })
       .catch((err) => {
         this.error = err;
@@ -78,6 +79,7 @@ export default {
       });
     this.user = store.fetchUser();
     store.fetchCategories().then(categories => {
+      return categories
     })
   },
   computed: {
@@ -102,12 +104,6 @@ export default {
     addData(newData) {
       Vue.set(this.activities, newData.id, newData); // This property used for display new activities
     },
-    clickActivityDelete (activity) {  // 7 delete
-      store.deleteDataAPI(activity)
-      .then(deletedActivity => {
-        Vue.delete(this.activities, deletedActivity.id)
-      })
-    }
   },
 };
 </script>

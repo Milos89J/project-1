@@ -35,6 +35,7 @@
   </template>
   
   <script>
+  import store from '@/store'
   import mixins from '@/mixins/mixins'
   export default {
     mixins: [mixins],
@@ -67,7 +68,8 @@
     },
     methods: {
       deleteData () { // 1 delete
-        this.$emit('activityDeleted', this.activity)
+        store.deletedata(this.activity)
+      
       }
     }
   };
