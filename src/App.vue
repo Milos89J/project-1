@@ -11,7 +11,7 @@
     <section class="container">
       <div class="columns">
         <div class="column is-3">
-          <DataCreate @dataCreated="addData" :categories="categories" />
+          <DataCreate :categories="categories" />
         </div>
         <div class="column is-9">
           <div
@@ -44,7 +44,6 @@
 
 <script>
 import store from './store';
-import Vue from "vue";
 import TheNavbar from "./components/TheNavbar.vue";
 import DataCreate from "@/components/DataCreate.vue";
 //import { fetchActivities, fetchUser, fetchCategories, deleteDataAPI } from "@/api"; 
@@ -101,9 +100,7 @@ export default {
     textDisplay() {
       this.isTextDisplayed = !this.isTextDisplayed;
     },
-    addData(newData) {
-      Vue.set(this.activities, newData.id, newData); // This property used for display new activities
-    },
+
   },
 };
 </script>

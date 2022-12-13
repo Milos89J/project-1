@@ -62,7 +62,7 @@
 </template>
 
 <script>
-import { createData } from "@/api";
+import store from '@/store'
 export default {
   props: {
     categories: {
@@ -94,13 +94,18 @@ export default {
       this.newData.notes = "";
       this.newData.categories = "";
     },
-    createActivity() {
-      createData({ ...this.newData }).then((data) => {
-        this.resetCreateNotes();
-        this.isDisplayed = false;
+    createData() {
+      store.createData({...this.newData})
+      .then(activity => {
+        this.resetCreateNotes()
+        this.isDisplayed = false
+      })
+      //createData({ ...this.newData }).then((data) => {
+       // this.resetCreateNotes();
+      //  this.isDisplayed = false;
 
-        this.$emit("dataCreated", { ...data });
-      });
+       // this.$emit("dataCreated", { ...data });
+      //});
     },
   },
 };

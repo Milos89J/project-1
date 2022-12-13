@@ -1,4 +1,4 @@
-import fakeApi from '@/lib/fakeApi';
+import fakeApi from '@/lib/fakeApi.js';
 import Vue from 'vue';
 
 const store = {
@@ -37,7 +37,10 @@ const store = {
       data.createAt = new Date();
       data.updatedAt = new Date();
 
-      return fakeApi.post("activities", data);
+      return fakeApi.post("activities", data)
+      .then(createdData => {
+        this.setItem('activities', createdData.id, createdData)
+      })
     },
    
     fetchUser() {
