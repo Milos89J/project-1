@@ -94,12 +94,11 @@ export default {
       this.newData.notes = "";
       this.newData.categories = "";
     },
-    createData() {
-      store.createData({...this.newData})
+    createActivity() {
+      store.createActivity({...this.newData})
       .then(activity => {
-        this.resetCreateNotes()
+        this.resetCreateNotes(activity)
         this.isDisplayed = false
-        activity
       })
       //createData({ ...this.newData }).then((data) => {
        // this.resetCreateNotes();

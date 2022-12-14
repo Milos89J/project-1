@@ -65,12 +65,19 @@ export default {
       categories,
     };
   },
+  activitiesLength() {
+
+  },
+  categoriesLength() {
+
+  },
   created() {
     this.fetchingData = true;
     store.fetchActivities() 
       .then((activities) => {
+        console.log(activities)
         this.fetchingData = false
-        return activities
+        //return activities
       })
       .catch((err) => {
         this.error = err;
@@ -78,7 +85,7 @@ export default {
       });
     this.user = store.fetchUser();
     store.fetchCategories().then(categories => {
-      return categories
+      this.categories = categories;
     })
   },
   computed: {

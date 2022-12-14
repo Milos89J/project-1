@@ -31,15 +31,15 @@ const store = {
       Vue.set(this.state[resource], id, item)
       },
 
-    createData(data) {
+    createActivity(data) {
       data.id = this.generateId();
       data.progress = 0;
       data.createAt = new Date();
       data.updatedAt = new Date();
 
       return fakeApi.post("activities", data)
-      .then(createdData => {
-        this.setItem('activities', createdData.id, createdData)
+      .then(createdActivity => {
+        this.setItem('activities', createdActivity.id, createdActivity)
       })
     },
    
