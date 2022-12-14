@@ -99,6 +99,7 @@ export default {
       .then(activity => {
         this.resetCreateNotes()
         this.isDisplayed = false
+        activity
       })
       //createData({ ...this.newData }).then((data) => {
        // this.resetCreateNotes();
